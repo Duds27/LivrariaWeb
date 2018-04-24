@@ -1,0 +1,56 @@
+    <button type="button" style="float:right;margin-bottom: 10px;" class="btn btn-info " ng-click="addLibrary()">Adicionar Livro</button>
+    <form id="empform" >
+        <table class="striped centered">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th ng-show="false">ID</th>
+                    <th>Categoria</th>
+                    <th>Título</th>
+                    <th>Editora</th>
+                    <th>Ano de Publicação</th>
+                    <th>Autor(es)</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                    <tr ng-repeat="lib in library | orderBy:'+book_title'">
+                    <!--<tr ng-repeat="lib in library">-->
+                    <td>{{$index+1}}</td>
+                    <td ng-show="false">
+                        <input name="library_id{{$index}}" ng-model="lib.library_id" ng-disabled="true"/>
+                    </td>
+                    <td>
+                        <input name="category_name{{$index}}" ng-model="lib.category_name" ng-disabled="!enabledEdit[{{$index}}]"
+                        required />
+                    </td>
+                    <td>
+                        <input name="book_title{{$index}}" ng-model="lib.book_title" ng-disabled="!enabledEdit[{{$index}}]" required/>
+                    </td>
+                    <td>
+                        <input name="book_publisher{{$index}}" ng-model="lib.book_publisher" ng-disabled="!enabledEdit[{{$index}}]" required/>
+                    </td>
+                    <td>
+                        <input name="book_year{{$index}}" ng-model="lib.book_year" ng-disabled="!enabledEdit[{{$index}}]" required/></td>
+                        <td>
+                            <input name="author_name{{$index}}" ng-model="lib.author_name" ng-disabled="!enabledEdit[{{$index}}]" required/>
+                        </td>
+                        <td>
+                            <input name="book_price{{$index}}" ng-model="lib.book_price" ng-disabled="!enabledEdit[{{$index}}]" required/>
+                        </td>
+                        <td>
+                            <div class="buttons">
+                                <button class="btn btn-primary" ng-click="editLibrary($index)" ng-disabled="enabledEdit[{{$index}}]">Editar</button>
+                                <button class="btn btn-danger" ng-click="deleteLibrary($index)">Deletar</button>
+                                <button class="btn btn-danger" ng-click="updateLibrary($index)" ng-disabled="!enabledEdit[{{$index}}]">Atualizar</button>
+                                <button class="btn btn-danger" ng-click="cancelLibrary($index)" ng-disabled="!enabledEdit[{{$index}}]">Cancelar</button>
+                            </div>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" ng-click="postLibrary($index)" ng-disabled="!enabledSub">Cadastrar</button>
+    </form>
